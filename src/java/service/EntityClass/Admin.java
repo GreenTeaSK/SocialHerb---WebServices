@@ -16,6 +16,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import service.NewJerseyClient;
 
 /**
  *
@@ -28,10 +29,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Admin.findAll", query = "SELECT a FROM Admin a")
     , @NamedQuery(name = "Admin.findByUsernameAd", query = "SELECT a FROM Admin a WHERE a.usernameAd = :usernameAd")
     , @NamedQuery(name = "Admin.findByPasswordAd", query = "SELECT a FROM Admin a WHERE a.passwordAd = :passwordAd")})
+
 public class Admin implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    //@Id
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 20)
@@ -96,5 +97,13 @@ public class Admin implements Serializable {
     public String toString() {
         return "service.EntityClass.Admin[ usernameAd=" + usernameAd + " ]";
     }
-    
+
+    public String execute() throws Exception {
+        NewJerseyClient client = new NewJerseyClient();
+        Object response = client.countREST();
+        // do whatever with response
+
+        client.close();
+        return "Success";
+    }
 }
